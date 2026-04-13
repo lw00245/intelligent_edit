@@ -1,0 +1,12 @@
+{
+  "/api/quantilized-image/route": "app/api/quantilized-image/route.js",
+  "/api/quantilized-images/route": "app/api/quantilized-images/route.js",
+  "/api/train-image/route": "app/api/train-image/route.js",
+  "/api/train-images/route": "app/api/train-images/route.js",
+  "/frame-list/page": "app/frame-list/page.js",
+  "/frame-train/page": "app/frame-train/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/role-list/page": "app/role-list/page.js",
+  "/role-train/page": "app/role-train/page.js"
+}
