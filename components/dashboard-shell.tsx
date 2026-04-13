@@ -14,15 +14,17 @@ const navItems = [
     key: "role",
     href: "/role-list",
     title: "角色训练",
-    caption: "角色模型训练与历史记录",
+    caption: "训练角色模型",
     icon: "role",
+    optional: true,
   },
   {
     key: "frame",
     href: "/frame-list",
     title: "插帧任务",
-    caption: "插值任务列表与结果查看",
+    caption: "插帧任务列表与结果查看",
     icon: "frame",
+    optional: false,
   },
 ] as const;
 
@@ -67,9 +69,9 @@ export function DashboardShell({ active, title, subtitle, action, children }: Da
     <div className="page-shell dashboard">
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <div className="brand-mark">AT</div>
-          <div className="sidebar-brand-copy">
-            <p className="eyebrow">Task Architect</p>
+          <div className="brand-mark">IE</div>
+          <div className="sidebar-brand-copy" style={{ textAlign: "center" }}>
+            <p className="eyebrow">Intelligent&nbsp;Edit</p>
             <strong className="sidebar-brand-title">智能编辑平台</strong>
           </div>
         </div>
@@ -79,14 +81,19 @@ export function DashboardShell({ active, title, subtitle, action, children }: Da
             <Link
               key={item.key}
               href={item.href}
-              className={`nav-link ${active === item.key ? "active" : ""}`}
+              className={`nav-link ${active === item.key ? "active" : ""} ${item.optional && active !== item.key ? "nav-link-optional" : ""}`}
             >
               <span className="nav-link-row">
                 <span className="nav-icon" aria-hidden="true">
                   <SidebarIcon kind={item.icon} />
                 </span>
                 <span>
-                  <span className="nav-title">{item.title}</span>
+                  <span className="nav-title">
+                    {item.title}
+                    {item.optional && (
+                      <span className="nav-optional-tag">可选</span>
+                    )}
+                  </span>
                   <span className="nav-caption">{item.caption}</span>
                 </span>
               </span>

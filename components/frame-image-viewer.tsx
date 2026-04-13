@@ -3,6 +3,12 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
+function useBody() {
+  const [body, setBody] = useState<HTMLElement | null>(null);
+  useEffect(() => { setBody(document.body); }, []);
+  return body;
+}
+
 export type FrameImage = {
   name: string;
   url: string;
@@ -18,6 +24,7 @@ export function FrameImageViewer({
   onClose: () => void;
 }) {
   const [idx, setIdx] = useState(initialIndex);
+  const body = useBody();
 
   const prev = () => setIdx((i) => (i > 0 ? i - 1 : images.length - 1));
   const next = () => setIdx((i) => (i < images.length - 1 ? i + 1 : 0));
@@ -31,6 +38,8 @@ export function FrameImageViewer({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  if (!body) return null;
 
   return createPortal(
     <div
@@ -146,6 +155,18 @@ export function FrameDataPreview() {
                     <circle cx="12" cy="12" r="2.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
                   </svg>
                   预览
+                </button>
+                <a className="text-button" href={img.url} download={img.name} style={{ textDecoration: "none" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  下载
+                </a>
+                <button className="text-button" type="button" style={{ color: "var(--danger)" }} onClick={() => setImages((prev) => prev.filter((_, j) => j !== i))}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  删除
                 </button>
               </div>
             </div>

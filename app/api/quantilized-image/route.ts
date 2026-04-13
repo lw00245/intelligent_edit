@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
       const { width, height } = tga.header;
       const imgData = { width, height, data: new Uint8ClampedArray(width * height * 4) };
       tga.getImageData(imgData);
-      const png = await sharp(Buffer.from(imgData.data), { raw: { width, height, channels: 4 } }).png().toBuffer();
+      const png = await sharp(Buffer.from(imgData.data), { raw: { width, height, channels: 4 } }).resize(Math.round(width / 2), Math.round(height / 2)).png().toBuffer();
       return new NextResponse(png, {
         headers: {
           "Content-Type": "image/png",

@@ -46,7 +46,8 @@ export default async function FrameTrainPage({ searchParams }: FrameTrainPagePro
           </div>
           <div className="field">
             <label htmlFor="frame-model">角色模型</label>
-            <select id="frame-model" className="select" defaultValue={task?.model ?? "mofan"}>
+            <select id="frame-model" className="select" defaultValue={task?.model ?? "mofan"} style={{ appearance: "none", paddingRight: 40, backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236982b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 10px center" }}>
+              <option value="">-- 不使用角色模型 --</option>
               <option value="mofan">mofan</option>
               <option value="Elder Oak - 场景角色">Elder Oak - 场景角色</option>
               <option value="Villager C">Villager C</option>
@@ -55,7 +56,23 @@ export default async function FrameTrainPage({ searchParams }: FrameTrainPagePro
           </div>
         </div>
 
-        <div className="fields-grid compact">
+        <div className="field">
+          <label htmlFor="upload-path">文件上传路径</label>
+          <input id="frame-file-upload" type="file" multiple style={{ display: "none" }} />
+          <div className="row-between" style={{ alignItems: "stretch" }}>
+            <input
+              id="upload-path"
+              className="input"
+              style={{ flex: 1 }}
+              defaultValue={task?.uploadPath ?? "/OSS/{用户名}/Projects/莫凡肘击"}
+            />
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <label htmlFor="frame-file-upload" className="secondary-button">上传文件</label>
+            </div>
+          </div>
+        </div>
+
+        <div className="fields-grid compact" style={{ gridTemplateColumns: "1fr 1fr 1fr 1fr auto", alignItems: "flex-end" }}>
           <div className="field">
             <label htmlFor="episode">剧集</label>
             <input id="episode" className="input" defaultValue={task?.episode ?? "E01"} />
@@ -72,23 +89,9 @@ export default async function FrameTrainPage({ searchParams }: FrameTrainPagePro
             <label htmlFor="layer">图层</label>
             <input id="layer" className="input" defaultValue={task?.layer ?? "BG_L01"} />
           </div>
-        </div>
-
-        <div className="field">
-          <label htmlFor="upload-path">文件上传路径</label>
-          <input id="frame-file-upload" type="file" multiple style={{ display: "none" }} />
-          <div className="row-between" style={{ alignItems: "stretch" }}>
-            <input
-              id="upload-path"
-              className="input"
-              style={{ flex: 1 }}
-              defaultValue={task?.uploadPath ?? "/OSS/{用户名}/Projects/莫凡肘击"}
-            />
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <label htmlFor="frame-file-upload" className="secondary-button">上传文件</label>
-              <button type="button" className="primary-button">开始插帧</button>
-            </div>
-          </div>
+          <button type="button" className="primary-button" style={{ height: "fit-content", whiteSpace: "nowrap" }}>
+            开始插帧
+          </button>
         </div>
       </section>
 

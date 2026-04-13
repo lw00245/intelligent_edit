@@ -1,6 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
+function useBody() {
+  const [body, setBody] = useState<HTMLElement | null>(null);
+  useEffect(() => { setBody(document.body); }, []);
+  return body;
+}
 
 export type TrainImage = {
   name: string;
@@ -17,6 +24,7 @@ export function ImageViewer({
   onClose: () => void;
 }) {
   const [idx, setIdx] = useState(initialIndex);
+  const body = useBody();
 
   const prev = () => setIdx((i) => (i > 0 ? i - 1 : images.length - 1));
   const next = () => setIdx((i) => (i < images.length - 1 ? i + 1 : 0));
@@ -31,7 +39,9 @@ export function ImageViewer({
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  return (
+  if (!body) return null;
+
+  return createPortal(
     <div
       style={{
         position: "fixed",
@@ -140,7 +150,8 @@ export function ImageViewer({
           下一张 &#9654;
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
