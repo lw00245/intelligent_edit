@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 52, "column": 0}, "map": {"version":3,"sources":["file:///home/featurize/work/test_npm/project/app/api/train-images/route.ts"],"sourcesContent":["import { NextResponse } from \"next/server\";\nimport { readdirSync } from \"fs\";\nimport { join } from \"path\";\n\nconst TRAIN_DIR = \"/home/featurize/work/test_npm/test_data/mofan/mofan_role/OSS/Datasets/MoFan/train\";\n\nexport async function GET() {\n  try {\n    const files = readdirSync(TRAIN_DIR)\n      .filter((f) => /\\.(png|jpg|jpeg|bmp|webp)$/i.test(f))\n      .sort();\n    return NextResponse.json({ images: files });\n  } catch {\n    return NextResponse.json({ images: [] }, { status: 500 });\n  }\n}\n"],"names":["TRAIN_DIR","GET","files","filter","f","test","sort","json","images","status"],"mappings":";;;;AAAA;AACA;;;AAGA,MAAMA,YAAY;AAEX,eAAeC;IACpB,IAAI;QACF,MAAMC,QAAQ,IAAA,4GAAW,EAACF,WACvBG,MAAM,CAAC,CAACC,IAAM,8BAA8BC,IAAI,CAACD,IACjDE,IAAI;QACP,OAAO,gJAAY,CAACC,IAAI,CAAC;YAAEC,QAAQN;QAAM;IAC3C,EAAE,OAAM;QACN,OAAO,gJAAY,CAACK,IAAI,CAAC;YAAEC,QAAQ,EAAE;QAAC,GAAG;YAAEC,QAAQ;QAAI;IACzD;AACF"}}]
-}
